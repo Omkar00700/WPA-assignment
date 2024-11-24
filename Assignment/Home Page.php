@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indian Culture Blog - Home</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        header {
+            background-color: #ff5733;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        nav {
+            margin: 20px 0;
+            text-align: center;
+        }
+        nav a {
+            margin: 0 15px;
+            color: #ff5733;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: auto;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        @media(min-width: 768px) {
+            .container {
+                grid-template-columns: 2fr 1fr;
+                gap: 40px;
+            }
+        }
+        .main-content {
+            grid-column: 1 / -1;
+            grid-row: 1;
+        }
+        @media(min-width: 768px) {
+            .main-content {
+                grid-column: 1 / 2;
+                grid-row: 1;
+            }
+        }
+        .sidebar {
+            display: none;
+        }
+        @media(min-width: 768px) {
+            .sidebar {
+                display: block;
+                grid-column: 2 / 3;
+                grid-row: 1;
+                background-color: #f0f0f0;
+                padding: 20px;
+                border-radius: 8px;
+            }
+        }
+        footer {
+            background-color: #ff5733;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            position: relative;
+            width: 100%;
+        }
+        /* Content Styling */
+        h1, h2, p {
+            margin: 0 0 20px 0;
+        }
+        img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+        .btn {
+            background-color: #ff5733;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .btn:hover {
+            background-color: #ff7f50;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <h1>Welcome to Indian Culture Blog</h1>
+        <p>Discover the Richness of India’s Culture and Heritage</p>
+    </header>
+
+    <!-- Navigation Section -->
+    <nav>
+        <a href="Home Page.php">Home</a>
+        <a href="Menu Page.php">Culture Menu</a> <!-- Link to Menu Page -->
+        <a href="Cart.php">Cart</a>
+        <a href="About.php">About</a>
+        <a href="Contact.php">Contact</a>
+        <a href="registration.php">Registration</a>
+        <a href="login.php">login</a>
+    </nav>
+
+    <!-- Main Content Section -->
+    <div class="container">
+        <!-- Main Content -->
+        <main class="main-content">
+            <h2>Explore Indian Culture</h2>
+            <p>Indian culture is one of the oldest and most diverse in the world. From the ancient times of the Vedic civilization to the vibrant present-day diversity, India's traditions, festivals, languages, and art forms offer a colorful insight into the lives of its people.</p>
+            <img src="indian-culture.jpg" alt="Indian Culture Image">
+            <p>Whether it's classical music, traditional dance, or regional cuisines, there's a rich cultural heritage that makes India unique. This blog explores the depth of India’s culture across various regions and times.</p>
+            <a href="Menu Page.html" class="btn">Explore the Full Culture Menu</a>
+        </main>
+
+        <!-- Sidebar Section -->
+        <aside class="sidebar">
+            <h2>Popular Posts</h2>
+            <ul>
+                <li><a href="#">Festivals of India</a></li>
+                <li><a href="#">Classical Dance Forms</a></li>
+                <li><a href="#">Regional Cuisines</a></li>
+                <li><a href="#">Indian Art and Craft</a></li>
+            </ul>
+        </aside>
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; 2024 Indian Culture Blog. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
