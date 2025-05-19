@@ -1,0 +1,10 @@
+version: '3.8'
+services:
+  service-a:
+    build: ./services/service-a
+    ports:
+      - "5000:5000"
+  service-b:
+    build: ./services/service-b
+    ports:
+      - "5001:5001"

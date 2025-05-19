@@ -1,0 +1,56 @@
+pipeline {
+  agent any
+  environment {
+    REGISTRY = 'your-docker-registry'
+    KUBE_CONFIG = credentials('kubeconfig')
+  }
+  triggers {
+    pollSCM('H/5 * * * *')
+  }
+  stages {
+    stage('Checkout Latest') {
+      steps {
+        checkout scm
+      }
+    }
+    stage('Build & Test') {
+      parallel {
+        'Service A': {
+          dir('services/service-a') {
+            sh 'pip install -r requirements.txt'
+            sh 'pytest --maxfail=1 --disable-warnings -q'
+            sh "docker build -t $REGISTRY/service-a:${env.BUILD_NUMBER} ."
+          }
+        }
+        'Service B': {
+          dir('services/service-b') {
+            sh 'pip install -r requirements.txt'
+            sh 'pytest --maxfail=1 --disable-warnings -q'
+            sh "docker build -t $REGISTRY/service-b:${env.BUILD_NUMBER} ."
+          }
+        }
+      }
+    }
+    stage('Push Images') {
+      steps {
+        sh "docker push $REGISTRY/service-a:${env.BUILD_NUMBER}"
+        sh "docker push $REGISTRY/service-b:${env.BUILD_NUMBER}"
+      }
+    }
+    stage('Deploy to Kubernetes') {
+      steps {
+        withKubeConfig([credentialsId: 'kubeconfig']) {
+          sh "kubectl apply -f k8s/namespace.yaml"
+          sh "kubectl set image deployment/service-a service-a=$REGISTRY/service-a:${env.BUILD_NUMBER} -n devops-sample"
+          sh "kubectl set image deployment/service-b service-b=$REGISTRY/service-b:${env.BUILD_NUMBER} -n devops-sample"
+          sh 'kubectl apply -f k8s/ingress.yaml'
+        }
+      }
+    }
+  }
+  post {
+    always {
+      junit 'services/**/tests/*.xml'
+    }
+  }
+}
